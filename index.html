@@ -7,6 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
 <style>
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
 font-family:Poppins, sans-serif;
@@ -59,10 +63,11 @@ margin-bottom:25px;
 .btn{
 padding:14px 28px;
 border-radius:30px;
-border:none;
-cursor:pointer;
+text-decoration:none;
+display:inline-block;
 font-weight:600;
 margin-right:10px;
+transition:0.3s;
 }
 
 .primary{
@@ -71,45 +76,49 @@ color:black;
 }
 
 .secondary{
-background:transparent;
 border:1px solid #00bfff;
 color:#00bfff;
 }
 
-/* FLOATING IMAGES */
+.btn:hover{
+transform:scale(1.05);
+}
+
+/* FLOATING IMAGES (Same visual size as Featured) */
 .hero-images{
 position:relative;
-width:500px;
-height:450px;
+width:650px;
+height:520px;
 }
 
 .hero-images img{
-width:260px;
+width:320px;
 border-radius:16px;
 position:absolute;
 animation:float 6s ease-in-out infinite;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 .img1{
 top:0;
-left:150px;
+left:180px;
 }
 
 .img2{
-top:180px;
+top:220px;
 left:0;
 animation-delay:1s;
 }
 
 .img3{
-top:100px;
-left:260px;
+top:120px;
+left:330px;
 animation-delay:2s;
 }
 
 @keyframes float{
 0%,100%{transform:translateY(0);}
-50%{transform:translateY(-20px);}
+50%{transform:translateY(-25px);}
 }
 
 /* FEATURED */
@@ -263,8 +272,8 @@ I design high converting YouTube thumbnails that increase CTR
 and grab attention instantly.
 </p>
 
-<button class="btn primary">View My Work</button>
-<button class="btn secondary">Hire Me</button>
+<a href="#featured" class="btn primary">View My Work</a>
+<a href="#contact" class="btn secondary">Hire Me</a>
 </div>
 
 <div class="hero-images">
@@ -277,7 +286,7 @@ and grab attention instantly.
 </section>
 
 <!-- FEATURED -->
-<section>
+<section id="featured">
 <h2>Featured Work</h2>
 <div class="grid">
 <img src="https://iili.io/qJPNtft.jpg">
@@ -321,7 +330,7 @@ My goal is simple: create thumbnails that look great and drive real results.
 </section>
 
 <!-- CONTACT -->
-<section class="contact">
+<section id="contact" class="contact">
 <h2>Let's Work Together</h2>
 
 <form>
