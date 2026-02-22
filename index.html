@@ -37,6 +37,7 @@ min-height:100vh;
 display:flex;
 align-items:center;
 position:relative;
+padding-bottom:140px; /* FIXED spacing */
 }
 
 .hero-container{
@@ -112,12 +113,16 @@ letter-spacing:2px;
 cursor:pointer;
 color:#bbbbbb;
 }
+.scroll-indicator span{
+display:block;
+margin-bottom:10px;
+}
 .mouse{
 width:28px;
 height:45px;
 border:2px solid #00bfff;
 border-radius:20px;
-margin:10px auto 0;
+margin:auto;
 position:relative;
 }
 .wheel{
@@ -140,6 +145,7 @@ animation:scroll 1.5s infinite;
 .featured-heading{text-align:center;margin-bottom:60px;}
 .featured-heading h2{font-size:46px;}
 .ctr-line{color:#00bfff;margin-top:15px;}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -207,7 +213,7 @@ box-shadow:0 15px 35px rgba(0,0,0,0.6);
 .compare-container{
 position:relative;
 max-width:800px;
-margin:0 auto 60px;
+margin:0 auto 80px;
 overflow:hidden;
 border-radius:18px;
 }
