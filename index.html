@@ -23,7 +23,7 @@ padding:80px 8%;
 }
 
 h1,h2{
-margin:0 0 20px 0;
+margin:0;
 }
 
 /* HERO */
@@ -84,7 +84,7 @@ color:#00bfff;
 transform:scale(1.05);
 }
 
-/* FLOATING IMAGES (Same visual size as Featured) */
+/* FLOATING IMAGES */
 .hero-images{
 position:relative;
 width:650px;
@@ -99,22 +99,9 @@ animation:float 6s ease-in-out infinite;
 box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
-.img1{
-top:0;
-left:180px;
-}
-
-.img2{
-top:220px;
-left:0;
-animation-delay:1s;
-}
-
-.img3{
-top:120px;
-left:330px;
-animation-delay:2s;
-}
+.img1{ top:0; left:180px; }
+.img2{ top:220px; left:0; animation-delay:1s; }
+.img3{ top:120px; left:330px; animation-delay:2s; }
 
 @keyframes float{
 0%,100%{transform:translateY(0);}
@@ -122,6 +109,23 @@ animation-delay:2s;
 }
 
 /* FEATURED */
+.featured-heading{
+text-align:center;
+margin-bottom:50px;
+}
+
+.featured-heading h2{
+font-size:42px;
+font-weight:900;
+}
+
+.ctr-line{
+color:#00bfff;
+font-weight:600;
+margin-top:10px;
+letter-spacing:1px;
+}
+
 .grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
@@ -132,11 +136,12 @@ gap:25px;
 width:100%;
 border-radius:16px;
 cursor:pointer;
-transition:0.3s;
+transition:0.4s ease;
 }
 
 .grid img:hover{
-transform:scale(1.05);
+transform:scale(1.07);
+box-shadow:0 0 40px rgba(0,191,255,1);
 }
 
 /* ABOUT */
@@ -287,7 +292,11 @@ and grab attention instantly.
 
 <!-- FEATURED -->
 <section id="featured">
+<div class="featured-heading">
 <h2>Featured Work</h2>
+<p class="ctr-line">High CTR Thumbnails That Drive Results</p>
+</div>
+
 <div class="grid">
 <img src="https://iili.io/qJPNtft.jpg">
 <img src="https://iili.io/qJPOxmx.jpg">
