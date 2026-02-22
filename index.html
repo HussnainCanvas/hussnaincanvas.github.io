@@ -3,173 +3,236 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Thumbnail Portfolio</title>
+<title>Hussnain Canvas</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
 <style>
-html { scroll-behavior:smooth; }
-body {
-    margin:0;
-    font-family:Poppins, sans-serif;
-    background:#0f172a;
-    color:white;
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:#0f172a;
+color:white;
 }
-section { padding:100px 8%; }
+section{padding:100px 8%;}
+h2{font-weight:900;}
 
-/* HERO */
-.hero {
-    min-height:100vh;
-    display:flex;
-    align-items:center;
+/* ================= HERO ================= */
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
 }
-.hero-container {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    width:100%;
+.hero-container{
+display:flex;
+justify-content:space-between;
+align-items:center;
+width:100%;
 }
-.hero-text { max-width:550px; }
-.hero h1 {
-    font-size:60px;
-    font-weight:900;
+.hero-text{max-width:550px;}
+.hero h1{
+font-size:64px;
+font-weight:900;
+line-height:1.2;
+margin-bottom:20px;
 }
-.blue-text { color:#00bfff; }
-.hero p {
-    color:#cbd5e1;
-    margin:20px 0;
+.blue{color:#00bfff;}
+.hero p{
+font-size:18px;
+color:#cbd5e1;
+margin-bottom:35px;
+line-height:1.7;
 }
-.hero-image img {
-    width:420px;
-    border-radius:18px;
-    animation:float 4s ease-in-out infinite;
-    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+.btn{
+padding:14px 30px;
+border-radius:40px;
+text-decoration:none;
+font-weight:600;
+display:inline-block;
+margin-right:15px;
+transition:.3s;
 }
-@keyframes float {
-    0% { transform:translateY(0px); }
-    50% { transform:translateY(-20px); }
-    100% { transform:translateY(0px); }
+.primary{
+background:#00bfff;
+color:black;
 }
-
-.btn {
-    padding:14px 30px;
-    border-radius:40px;
-    text-decoration:none;
-    display:inline-block;
-    font-weight:600;
-    margin-right:15px;
-    transition:0.3s;
+.secondary{
+border:1px solid #00bfff;
+color:#00bfff;
 }
-.primary {
-    background:#00bfff;
-    color:black;
+.btn:hover{transform:scale(1.05);}
+.hero-img img{
+width:420px;
+border-radius:20px;
+animation:float 4s ease-in-out infinite;
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
 }
-.secondary {
-    border:1px solid #00bfff;
-    color:#00bfff;
-}
-.btn:hover { transform:scale(1.05); }
-
-/* FEATURED */
-.featured-heading {
-    text-align:center;
-    margin-bottom:60px;
-}
-.featured-heading h2 {
-    font-size:42px;
-    font-weight:900;
-}
-.ctr-line {
-    color:#00bfff;
-    margin-top:10px;
-    font-weight:600;
-}
-.grid {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:25px;
-}
-.grid img {
-    width:100%;
-    border-radius:16px;
-    transition:0.3s;
-}
-.grid img:hover {
-    transform:scale(1.07);
-    box-shadow:0 0 35px rgba(0,191,255,0.8);
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+100%{transform:translateY(0);}
 }
 
-/* BEFORE AFTER SLIDER */
-.before-after {
-    text-align:center;
+/* ================= FEATURED ================= */
+.featured{text-align:center;}
+.featured h2{
+font-size:48px;
+margin-bottom:10px;
 }
-.slider-container {
-    position:relative;
-    max-width:800px;
-    margin:50px auto;
-    overflow:hidden;
-    border-radius:18px;
+.featured p{
+color:#00bfff;
+font-weight:600;
+margin-bottom:60px;
 }
-.slider-container img {
-    width:100%;
-    display:block;
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
 }
-.after-image {
-    position:absolute;
-    top:0;
-    left:0;
-    width:50%;
-    overflow:hidden;
+.grid img{
+width:100%;
+border-radius:18px;
+transition:.3s;
+cursor:pointer;
 }
-.slider {
-    position:absolute;
-    top:0;
-    left:50%;
-    width:4px;
-    height:100%;
-    background:#00bfff;
-    cursor:ew-resize;
+.grid img:hover{
+transform:scale(1.07);
+box-shadow:0 0 40px rgba(0,191,255,.9);
 }
 
-/* RESPONSIVE */
+/* ================= ABOUT ================= */
+.about{
+display:grid;
+grid-template-columns:1.2fr 0.8fr;
+gap:70px;
+align-items:center;
+}
+.about h2{
+font-size:46px;
+margin-bottom:25px;
+}
+.about p{
+color:#cbd5e1;
+font-size:18px;
+line-height:1.9;
+}
+.highlight{
+color:#00bfff;
+font-weight:700;
+}
+.about img{
+width:85%;
+border-radius:18px;
+box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
+/* ================= BEFORE AFTER ================= */
+.before{text-align:center;}
+.before h2{
+font-size:46px;
+margin-bottom:60px;
+}
+.compare{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+margin-bottom:60px;
+}
+.compare div{
+text-align:center;
+}
+.compare img{
+width:100%;
+border-radius:18px;
+box-shadow:0 15px 30px rgba(0,0,0,.6);
+}
+.label{
+margin-bottom:15px;
+font-weight:700;
+color:#00bfff;
+font-size:18px;
+}
+
+/* ================= CONTACT ================= */
+.contact{text-align:center;}
+.contact h2{
+font-size:48px;
+margin-bottom:20px;
+}
+.contact p{
+color:#cbd5e1;
+font-size:18px;
+max-width:600px;
+margin:0 auto 50px;
+line-height:1.8;
+}
+form{
+max-width:500px;
+margin:auto;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+input,textarea{
+padding:16px;
+border-radius:12px;
+border:1px solid #1e293b;
+background:#1e293b;
+color:white;
+font-family:Poppins;
+}
+input:focus,textarea:focus{
+outline:none;
+border:1px solid #00bfff;
+box-shadow:0 0 15px rgba(0,191,255,.5);
+}
+textarea{resize:none;height:120px;}
+button{
+padding:14px;
+border:none;
+border-radius:40px;
+background:#00bfff;
+font-weight:700;
+cursor:pointer;
+}
+button:hover{transform:scale(1.05);}
+
+/* ================= RESPONSIVE ================= */
 @media(max-width:900px){
-    .hero-container { flex-direction:column; text-align:center; }
-    .hero-image img { width:300px; margin-top:40px; }
-    .grid { grid-template-columns:repeat(2,1fr); }
+.hero-container{flex-direction:column;text-align:center;}
+.hero-img img{width:300px;margin-top:40px;}
+.grid{grid-template-columns:repeat(2,1fr);}
+.about{grid-template-columns:1fr;text-align:center;}
+.compare{grid-template-columns:1fr;}
 }
 @media(max-width:600px){
-    .grid { grid-template-columns:1fr; }
-    .hero h1 { font-size:38px; }
+.grid{grid-template-columns:1fr;}
+.hero h1{font-size:38px;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
+<!-- 1️⃣ HERO -->
 <section class="hero">
 <div class="hero-container">
-
 <div class="hero-text">
-<h1>Thumbnails That Get <span class="blue-text">Clicks</span></h1>
-<p>I design high converting YouTube thumbnails that increase CTR and capture attention instantly.</p>
+<h1>Thumbnails That Get <span class="blue">Clicks</span></h1>
+<p>I design <strong>high‑converting YouTube thumbnails</strong> that increase CTR and instantly grab attention.</p>
 <a href="#featured" class="btn primary">View My Work</a>
 <a href="#contact" class="btn secondary">Hire Me</a>
 </div>
-
-<div class="hero-image">
+<div class="hero-img">
 <img src="https://iili.io/qJPNtft.jpg">
 </div>
-
 </div>
 </section>
 
-<!-- FEATURED -->
-<section id="featured">
-<div class="featured-heading">
+<!-- 2️⃣ FEATURE WORK -->
+<section id="featured" class="featured">
 <h2>Featured Work</h2>
-<p class="ctr-line">High CTR Thumbnails That Drive Results</p>
-</div>
-
+<p>High CTR Thumbnails That Drive Results</p>
 <div class="grid">
 <img src="https://iili.io/qJPNtft.jpg">
 <img src="https://iili.io/qJPOxmx.jpg">
@@ -180,40 +243,63 @@ section { padding:100px 8%; }
 </div>
 </section>
 
-<!-- BEFORE & AFTER -->
-<section class="before-after">
-<h2 style="font-size:40px;font-weight:900;">Before & After</h2>
+<!-- 3️⃣ ABOUT ME -->
+<section class="about">
+<div>
+<h2>About Me</h2>
+<p>
+I am a professional <strong>YouTube Thumbnail Designer</strong> focused on bold, eye‑catching visuals that improve engagement and performance.
+<br><br>
+<span class="highlight">My goal:</span> Create powerful thumbnails that increase click‑through rate and grow your channel.
+</p>
+</div>
+<div>
+<img src="https://iili.io/qdvhsp4.jpg">
+</div>
+</section>
 
-<div class="slider-container" id="slider1">
+<!-- 4️⃣ BEFORE / AFTER -->
+<section class="before">
+<h2>Before & After</h2>
+
+<div class="compare">
+<div>
+<div class="label">Before</div>
 <img src="https://iili.io/qdHjWs1.jpg">
-<div class="after-image">
+</div>
+<div>
+<div class="label">After</div>
 <img src="https://iili.io/qJPg0FV.jpg">
 </div>
-<div class="slider"></div>
+</div>
+
+<div class="compare">
+<div>
+<div class="label">Before</div>
+<img src="https://iili.io/qdHg9El.jpg">
+</div>
+<div>
+<div class="label">After</div>
+<img src="https://iili.io/qdHgfTu.jpg">
+</div>
 </div>
 
 </section>
 
-<script>
-const container = document.querySelector(".slider-container");
-const afterImage = document.querySelector(".after-image");
-const slider = document.querySelector(".slider");
+<!-- 5️⃣ LET'S WORK TOGETHER -->
+<section id="contact" class="contact">
+<h2>Let’s Work Together</h2>
+<p>
+Have a project in mind? Let’s create high‑impact thumbnails that boost your YouTube performance.
+</p>
 
-let isDown = false;
-
-slider.addEventListener("mousedown", () => isDown = true);
-window.addEventListener("mouseup", () => isDown = false);
-
-window.addEventListener("mousemove", (e) => {
-    if(!isDown) return;
-    let rect = container.getBoundingClientRect();
-    let x = e.clientX - rect.left;
-    if(x < 0) x = 0;
-    if(x > rect.width) x = rect.width;
-    afterImage.style.width = x + "px";
-    slider.style.left = x + "px";
-});
-</script>
+<form>
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Tell me about your project..." required></textarea>
+<button type="submit">Send Message</button>
+</form>
+</section>
 
 </body>
 </html>
