@@ -104,6 +104,39 @@ transform:scale(1.07);
 box-shadow:0 0 40px rgba(0,191,255,1);
 }
 
+/* LIGHTBOX */
+#lightbox{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:9999;
+}
+#lightbox img{
+max-width:85%;
+max-height:85%;
+border-radius:18px;
+box-shadow:0 0 50px rgba(0,191,255,0.6);
+}
+.close-btn{
+position:absolute;
+top:30px;
+right:40px;
+font-size:35px;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+.close-btn:hover{
+color:#00bfff;
+transform:scale(1.2);
+}
+
 /* ABOUT */
 .about{
 display:grid;
@@ -284,7 +317,7 @@ section{padding:70px 6%;}
 <section id="featured">
 <div class="featured-heading">
 <h2>Featured Work</h2>
-<p class="ctr-line">High CTR Thumbnails That Drive Results</p>
+<p class="ctr-line">Click Any Thumbnail To View Larger</p>
 </div>
 <div class="grid">
 <img src="https://iili.io/qJPNtft.jpg">
@@ -298,6 +331,12 @@ section{padding:70px 6%;}
 <img src="https://iili.io/qJPUDZJ.jpg">
 </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+<span class="close-btn">&times;</span>
+<img id="lightbox-img">
+</div>
 
 <!-- ABOUT -->
 <section class="about">
@@ -359,32 +398,44 @@ I am a professional <strong>YouTube Thumbnail Designer</strong> specializing in 
 </section>
 
 <script>
+/* LIGHTBOX */
+const images = document.querySelectorAll(".grid img");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+const closeBtn = document.querySelector(".close-btn");
+
+images.forEach(img=>{
+img.addEventListener("click",()=>{
+lightbox.style.display="flex";
+lightboxImg.src=img.src;
+});
+});
+closeBtn.addEventListener("click",()=> lightbox.style.display="none");
+lightbox.addEventListener("click",(e)=>{
+if(e.target===lightbox) lightbox.style.display="none";
+});
+
+/* BEFORE AFTER SLIDER */
 function initCompare(container){
-const after = container.querySelector(".after-image");
-const line = container.querySelector(".slider-line");
-const button = container.querySelector(".slider-button");
+const after=container.querySelector(".after-image");
+const line=container.querySelector(".slider-line");
+const button=container.querySelector(".slider-button");
+let isDragging=false;
 
-let isDragging = false;
-
-button.addEventListener("mousedown", ()=> isDragging = true);
-window.addEventListener("mouseup", ()=> isDragging = false);
-
-window.addEventListener("mousemove", (e)=>{
+button.addEventListener("mousedown",()=>isDragging=true);
+window.addEventListener("mouseup",()=>isDragging=false);
+window.addEventListener("mousemove",(e)=>{
 if(!isDragging) return;
-
-let rect = container.getBoundingClientRect();
-let offsetX = e.clientX - rect.left;
-if(offsetX < 0) offsetX = 0;
-if(offsetX > rect.width) offsetX = rect.width;
-
-let percent = (offsetX / rect.width) * 100;
-
-after.style.width = percent + "%";
-line.style.left = percent + "%";
-button.style.left = percent + "%";
+let rect=container.getBoundingClientRect();
+let offsetX=e.clientX-rect.left;
+if(offsetX<0) offsetX=0;
+if(offsetX>rect.width) offsetX=rect.width;
+let percent=(offsetX/rect.width)*100;
+after.style.width=percent+"%";
+line.style.left=percent+"%";
+button.style.left=percent+"%";
 });
 }
-
 initCompare(document.getElementById("compare1"));
 initCompare(document.getElementById("compare2"));
 </script>
