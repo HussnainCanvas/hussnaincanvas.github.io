@@ -1,640 +1,2067 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hussnain Canvas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thumbnail Designer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --accent: #e94560;
+            --accent-glow: rgba(233, 69, 96, 0.4);
+            --accent-secondary: #0f3460;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+            --gradient-1: linear-gradient(135deg, #e94560, #0f3460);
+            --gradient-2: linear-gradient(135deg, #667eea, #764ba2);
+            --gradient-3: linear-gradient(135deg, #f093fb, #f5576c);
+        }
 
-<style>
-html{scroll-behavior:smooth;overflow-x:hidden;}
-body{
-margin:0;
-font-family:Poppins, sans-serif;
-background:
-radial-gradient(circle at 20% 20%, rgba(0,191,255,0.15), transparent 40%),
-radial-gradient(circle at 80% 80%, rgba(0,191,255,0.1), transparent 40%),
-#0f0f14;
-color:white;
-overflow-x:hidden;
-}
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) var(--bg-primary);
+        }
 
-section{
-padding:55px 8%;
-position:relative;
-}
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-/* NAVBAR */
-.navbar{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:1000;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:22px 8%;
-background:transparent;
-transition:.35s ease;
-}
-.navbar.scrolled{
-padding:16px 8%;
-background:rgba(15,15,20,0.75);
-backdrop-filter:blur(14px);
--webkit-backdrop-filter:blur(14px);
-border-bottom:1px solid rgba(0,191,255,0.15);
-}
-.nav-logo{
-font-weight:900;
-font-size:20px;
-letter-spacing:.5px;
-color:white;
-text-decoration:none;
-}
-.nav-logo span{color:#00bfff;}
-.nav-links{
-list-style:none;
-display:flex;
-align-items:center;
-gap:38px;
-margin:0;
-padding:0;
-}
-.nav-links a{
-color:#dddddd;
-text-decoration:none;
-font-size:14px;
-font-weight:500;
-letter-spacing:.3px;
-position:relative;
-padding:6px 0;
-transition:.25s;
-}
-.nav-links a::after{
-content:"";
-position:absolute;
-left:0;
-bottom:0;
-width:0;
-height:2px;
-background:#00bfff;
-transition:.3s;
-}
-.nav-links a:hover{color:#ffffff;}
-.nav-links a:hover::after{width:100%;}
-.nav-links a.active{color:#00bfff;}
-.nav-links a.active::after{width:100%;}
-.nav-cta{
-border:1px solid #00bfff;
-color:#00bfff !important;
-padding:9px 20px;
-border-radius:30px;
-font-weight:600;
-}
-.nav-cta::after{display:none;}
-.nav-cta:hover{background:#00bfff;color:black !important;}
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
 
-.nav-toggle{
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-gap:5px;
-width:44px;
-height:44px;
-cursor:pointer;
-z-index:1100;
-}
-.nav-toggle span{
-width:24px;
-height:2px;
-background:white;
-transition:.3s;
-}
-.nav-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,6px);}
-.nav-toggle.open span:nth-child(2){opacity:0;}
-.nav-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-6px);}
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
 
-@media(max-width:1024px){
-.nav-links{gap:26px;}
-}
-@media(max-width:960px){
-.nav-toggle{display:flex;}
-.nav-links{
-position:fixed;
-top:0;
-right:0;
-height:100vh;
-width:min(280px,80vw);
-max-width:100vw;
-box-sizing:border-box;
-background:#0f0f14;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:0 24px;
-gap:30px;
-text-align:center;
-transform:translateX(100%);
-transition:.35s ease;
-border-left:1px solid rgba(0,191,255,0.15);
-box-shadow:-10px 0 40px rgba(0,0,0,0.5);
-}
-.nav-links.open{transform:translateX(0);}
-.nav-cta{margin-top:10px;}
-}
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
+            border-bottom: 1px solid rgba(233, 69, 96, 0.1);
+            transition: all 0.3s ease;
+        }
 
-h1,h2{
-margin:0;
-font-weight:900;
-}
+        .navbar.scrolled {
+            padding: 0.7rem 2rem;
+            background: rgba(10, 10, 15, 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
 
-/* HERO */
-.hero{
-min-height:100vh;
-box-sizing:border-box;
-display:flex;
-align-items:center;
-position:relative;
-padding-top:100px;
-padding-bottom:50px;
-}
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
 
-.hero-container{
-display:flex;
-justify-content:space-between;
-align-items:center;
-width:100%;
-}
+        .logo span {
+            color: var(--accent);
+        }
 
-.hero-text{max-width:520px;}
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
 
-.hero h1{
-font-size:64px;
-line-height:1.1;
-margin-bottom:25px;
-}
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.3rem 0;
+        }
 
-.blue-text{color:#00bfff;}
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
 
-.hero p{
-color:#bbbbbb;
-margin-bottom:35px;
-font-size:18px;
-line-height:1.7;
-}
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
 
-.btn{
-padding:15px 30px;
-border-radius:30px;
-text-decoration:none;
-display:inline-block;
-font-weight:600;
-margin-right:12px;
-transition:.3s;
-cursor:pointer;
-}
+        .nav-links a:hover::after {
+            width: 100%;
+        }
 
-.primary{background:#00bfff;color:black;}
-.secondary{border:1px solid #00bfff;color:#00bfff;}
-.btn:hover{transform:scale(1.05);}
+        .nav-cta {
+            background: var(--accent) !important;
+            color: white !important;
+            padding: 0.6rem 1.5rem !important;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            -webkit-text-fill-color: white !important;
+        }
 
-/* HERO IMAGES */
-.hero-images{
-position:relative;
-width:650px;
-height:520px;
-}
-.hero-images img{
-width:320px;
-border-radius:18px;
-position:absolute;
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
-animation:float 6s ease-in-out infinite;
-}
-.img1{ top:0; left:180px; }
-.img2{ top:220px; left:0; animation-delay:1s; }
-.img3{ top:120px; left:330px; animation-delay:2s; }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px var(--accent-glow);
+        }
 
-@keyframes float{
-0%,100%{transform:translateY(0);}
-50%{transform:translateY(-25px);}
-}
+        .nav-cta::after {
+            display: none !important;
+        }
 
-/* SCROLL INDICATOR */
-.scroll-indicator{
-position:absolute;
-bottom:40px;
-left:50%;
-transform:translateX(-50%);
-text-align:center;
-font-size:13px;
-letter-spacing:2px;
-cursor:pointer;
-color:#bbbbbb;
-}
-.scroll-indicator span{
-display:block;
-margin-bottom:10px;
-}
-.mouse{
-width:28px;
-height:45px;
-border:2px solid #00bfff;
-border-radius:20px;
-margin:auto;
-position:relative;
-}
-.wheel{
-width:4px;
-height:8px;
-background:#00bfff;
-border-radius:2px;
-position:absolute;
-top:8px;
-left:50%;
-transform:translateX(-50%);
-animation:scroll 1.5s infinite;
-}
-@keyframes scroll{
-0%{opacity:1; top:8px;}
-100%{opacity:0; top:25px;}
-}
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
 
-/* FEATURED */
-.featured-heading{text-align:center;margin-bottom:32px;}
-.featured-heading h2{font-size:46px;}
-.ctr-line{color:#00bfff;margin-top:15px;}
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:28px;
-}
-.grid img{
-width:100%;
-border-radius:18px;
-cursor:pointer;
-transition:.4s;
-}
-.grid img:hover{
-transform:scale(1.07);
-box-shadow:0 0 40px rgba(0,191,255,0.8);
-}
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
 
-/* LIGHTBOX */
-#lightbox{
-position:fixed;
-top:0;left:0;
-width:100%;height:100%;
-background:rgba(0,0,0,0.95);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:9999;
-}
-#lightbox img{
-max-width:85%;
-max-height:85%;
-border-radius:18px;
-}
-.close-btn{
-position:absolute;
-top:30px;
-right:40px;
-font-size:35px;
-cursor:pointer;
-}
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
 
-/* ABOUT */
-.about{
-display:grid;
-grid-template-columns:1.2fr 0.8fr;
-gap:70px;
-align-items:center;
-}
-.about h2{font-size:44px;margin-bottom:18px;}
-.about p{
-color:#cccccc;
-font-size:18px;
-line-height:1.8;
-}
-.goal-highlight{color:#00bfff;font-weight:700;}
-.about img{
-width:85%;
-border-radius:18px;
-box-shadow:0 15px 35px rgba(0,0,0,0.6);
-}
+        /* Background effects */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            top: -200px;
+            right: -200px;
+            animation: pulse 4s ease-in-out infinite;
+        }
 
-/* BEFORE AFTER */
-.before-after{text-align:center;}
-.before-after h2{font-size:44px;margin-bottom:30px;}
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(15, 52, 96, 0.3), transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation: pulse 5s ease-in-out infinite reverse;
+        }
 
-.compare-container{
-position:relative;
-max-width:800px;
-margin:0 auto 36px;
-overflow:hidden;
-border-radius:18px;
-}
-.compare-container img{
-width:100%;
-display:block;
-}
-.after-image{
-position:absolute;
-top:0;
-left:0;
-height:100%;
-width:50%;
-overflow:hidden;
-}
-.slider-line{
-position:absolute;
-top:0;
-left:50%;
-width:3px;
-height:100%;
-background:#00bfff;
-cursor:ew-resize;
-}
-.slider-button{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:#00bfff;
-padding:10px 14px;
-border-radius:50%;
-cursor:ew-resize;
-}
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
 
-/* CONTACT */
-.contact{text-align:center;}
-.contact h2{font-size:46px;margin-bottom:14px;}
-.contact p{color:#bbbbbb;margin-bottom:28px;}
-.contact form{
-display:flex;
-flex-direction:column;
-max-width:450px;
-margin:auto;
-gap:20px;
-}
-input,textarea{
-padding:15px;
-border-radius:10px;
-border:none;
-background:#111;
-color:white;
-}
-textarea{height:120px;resize:none;}
-button{
-padding:14px;
-border:none;
-border-radius:30px;
-background:#00bfff;
-font-weight:700;
-cursor:pointer;
-}
-button:hover{transform:scale(1.05);}
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1300px;
+            width: 100%;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
 
-.social{
-margin-top:40px;
-}
-.social a{
-margin:0 15px;
-color:#00bfff;
-font-size:22px;
-}
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
 
-/* RESPONSIVE */
-@media(max-width:960px){
-.hero{padding-top:80px;}
-.hero-container{flex-direction:column;text-align:center;}
-.hero-images{display:flex;gap:20px;height:auto;width:100%;margin-top:40px;}
-.hero-images img{position:static;width:30%;animation:none;}
-.grid{grid-template-columns:repeat(2,1fr);}
-.about{grid-template-columns:1fr;text-align:center;}
-.about img{width:60%;margin:auto;}
-}
-@media(max-width:600px){
-.grid{grid-template-columns:1fr;}
-.hero h1{font-size:40px;}
-section{padding:40px 6%;}
-}
-</style>
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent);
+            width: fit-content;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.6s 0.2s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-title .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            line-height: 1.8;
+            animation: fadeInUp 0.6s 0.4s ease forwards;
+            opacity: 0;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 1rem;
+            animation: fadeInUp 0.6s 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            animation: fadeInUp 0.6s 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating Thumbnails */
+        .hero-thumbnails {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            perspective: 1000px;
+        }
+
+        .floating-thumb {
+            position: absolute;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .floating-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .floating-thumb:hover {
+            transform: scale(1.08) !important;
+            box-shadow: 0 30px 80px rgba(233, 69, 96, 0.3);
+            border-color: var(--accent);
+            z-index: 10;
+        }
+
+        .thumb-1 {
+            width: 280px;
+            height: 160px;
+            top: 20px;
+            left: 10%;
+            animation: float1 6s ease-in-out infinite;
+            z-index: 3;
+        }
+
+        .thumb-2 {
+            width: 240px;
+            height: 140px;
+            top: 100px;
+            right: 5%;
+            animation: float2 7s ease-in-out infinite;
+            z-index: 2;
+        }
+
+        .thumb-3 {
+            width: 260px;
+            height: 150px;
+            bottom: 100px;
+            left: 20%;
+            animation: float3 8s ease-in-out infinite;
+            z-index: 4;
+        }
+
+        .thumb-4 {
+            width: 220px;
+            height: 130px;
+            bottom: 40px;
+            right: 10%;
+            animation: float4 6.5s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            33% { transform: translateY(-20px) rotate(-1deg); }
+            66% { transform: translateY(10px) rotate(-5deg); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0) rotate(3deg); }
+            33% { transform: translateY(15px) rotate(5deg); }
+            66% { transform: translateY(-25px) rotate(1deg); }
+        }
+
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0) rotate(2deg); }
+            33% { transform: translateY(-15px) rotate(4deg); }
+            66% { transform: translateY(20px) rotate(0deg); }
+        }
+
+        @keyframes float4 {
+            0%, 100% { transform: translateY(0) rotate(-4deg); }
+            33% { transform: translateY(20px) rotate(-2deg); }
+            66% { transform: translateY(-10px) rotate(-6deg); }
+        }
+
+        /* Particle dots in hero */
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-title .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 1rem auto 0;
+            font-size: 1rem;
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 3px;
+            background: var(--gradient-1);
+            margin: 1.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== FEATURED WORK / PORTFOLIO ===== */
+        #featured {
+            background: var(--bg-secondary);
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .portfolio-card {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            group: true;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(233, 69, 96, 0.15);
+            border-color: rgba(233, 69, 96, 0.3);
+        }
+
+        .card-image {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-card:hover .card-image img {
+            transform: scale(1.08);
+        }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 10, 15, 0.9), transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .overlay-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .overlay-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .card-info {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 0.4rem;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .meta-item {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        #about {
+            background: var(--bg-primary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid rgba(233, 69, 96, 0.2);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .about-image-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            top: 20px;
+            left: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .floating-badge {
+            position: absolute;
+            background: var(--bg-card);
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .badge-top {
+            top: -15px;
+            right: -15px;
+        }
+
+        .badge-bottom {
+            bottom: 30px;
+            left: -20px;
+        }
+
+        .badge-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .badge-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .skill-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .skill-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .about-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* ===== BEFORE & AFTER SECTION ===== */
+        #before-after {
+            background: var(--bg-secondary);
+        }
+
+        .ba-sliders-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .ba-slider-wrapper {
+            background: var(--bg-card);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .ba-slider-wrapper:hover {
+            border-color: rgba(233, 69, 96, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .ba-slider {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            cursor: col-resize;
+            user-select: none;
+        }
+
+        .ba-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ba-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ba-image.before {
+            z-index: 1;
+            clip-path: inset(0 50% 0 0);
+        }
+
+        .ba-image.after {
+            z-index: 0;
+        }
+
+        .ba-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--accent);
+            z-index: 3;
+            transform: translateX(-50%);
+            cursor: col-resize;
+        }
+
+        .ba-handle::before {
+            content: '◄ ►';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: white;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .ba-labels {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 12px;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .ba-label {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            backdrop-filter: blur(10px);
+        }
+
+        .ba-label.before-label {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ba-label.after-label {
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .ba-info {
+            padding: 1.2rem 1.5rem;
+        }
+
+        .ba-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .ba-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        #testimonials {
+            background: var(--bg-primary);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            border-color: rgba(233, 69, 96, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent);
+            opacity: 0.15;
+            position: absolute;
+            top: 5px;
+            left: 15px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .author-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ===== CONTACT / CTA ===== */
+        #contact {
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #contact::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+            top: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.3;
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+        }
+
+        .contact-desc {
+            color: var(--text-secondary);
+            margin: 1rem 0 2rem;
+            font-size: 1.05rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(233, 69, 96, 0.1);
+            border: 1px solid rgba(233, 69, 96, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-item-value {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-top: 0.2rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-primary);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        /* ===== SCROLL TO TOP ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 45px;
+            height: 45px;
+            background: var(--accent);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px var(--accent-glow);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: var(--accent);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* ===== SCROLL ANIMATION ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .ba-sliders-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-thumbnails {
+                height: 350px;
+            }
+
+            .thumb-1 { width: 200px; height: 115px; left: 5%; }
+            .thumb-2 { width: 180px; height: 105px; right: 2%; }
+            .thumb-3 { width: 190px; height: 110px; left: 15%; }
+            .thumb-4 { width: 170px; height: 100px; right: 5%; }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                margin: 0 auto;
+                max-width: 350px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-cta {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--bg-secondary);
+                flex-direction: column;
+                justify-content: center;
+                padding: 2rem;
+                transition: right 0.4s ease;
+                border-left: 1px solid rgba(233, 69, 96, 0.2);
+                gap: 1.5rem;
+            }
+
+            .nav-links.open {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ba-sliders-container {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-thumbnails {
+                height: 300px;
+            }
+
+            .thumb-1 { width: 160px; height: 95px; left: 0; }
+            .thumb-2 { width: 150px; height: 90px; right: 0; top: 70px; }
+            .thumb-3 { width: 155px; height: 92px; left: 10%; }
+            .thumb-4 { width: 140px; height: 85px; right: 0; }
+
+            .contact-info {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .floating-badge {
+                display: none;
+            }
+        }
+
+        /* ===== PLACEHOLDER IMAGES ===== */
+        .placeholder-img {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 1rem;
+        }
+    </style>
 </head>
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar" id="navbar">
-<a href="#home" class="nav-logo">Hussnain<span>Canvas</span></a>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="logo">THUMB<span>FOLIO</span></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero" onclick="closeMenu()">Home</a></li>
+            <li><a href="#featured" onclick="closeMenu()">Work</a></li>
+            <li><a href="#about" onclick="closeMenu()">About</a></li>
+            <li><a href="#before-after" onclick="closeMenu()">Before/After</a></li>
+            <li><a href="#contact" onclick="closeMenu()" class="nav-cta">Hire Me</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
 
-<div class="nav-toggle" id="navToggle">
-<span></span><span></span><span></span>
-</div>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <!-- Particles -->
+        <div class="particles" id="particles"></div>
 
-<ul class="nav-links" id="navLinks">
-<li><a href="#home" class="nav-link active" data-target="home">Home</a></li>
-<li><a href="#featured" class="nav-link" data-target="featured">Work</a></li>
-<li><a href="#about" class="nav-link" data-target="about">About</a></li>
-<li><a href="#before-after" class="nav-link" data-target="before-after">Before & After</a></li>
-<li><a href="#contact" class="nav-cta">Hire Me</a></li>
-</ul>
-</nav>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Available for Freelance
+                </div>
+                <h1 class="hero-title">
+                    I Design<br>
+                    <span class="highlight">Click-Worthy</span><br>
+                    Thumbnails
+                </h1>
+                <p class="hero-subtitle">
+                    Helping YouTubers & content creators boost their CTR with 
+                    eye-catching, scroll-stopping thumbnails that turn viewers into subscribers.
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Thumbnails</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">Clients</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">15%</div>
+                        <div class="stat-label">Avg CTR</div>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#featured" class="btn-primary">View My Work ↓</a>
+                    <a href="#contact" class="btn-secondary">Get in Touch</a>
+                </div>
+            </div>
 
-<!-- HERO -->
-<section class="hero" id="home">
-<div class="hero-container">
-<div class="hero-text">
-<h1>Thumbnails That Get <span class="blue-text">Clicks</span></h1>
-<p>I design <strong>high converting YouTube thumbnails</strong> that increase CTR and grab attention instantly.</p>
-<a href="#featured" class="btn primary">View My Work</a>
-<a href="#contact" class="btn secondary">Hire Me</a>
-</div>
+            <div class="hero-thumbnails">
+                <div class="floating-thumb thumb-1" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/thumb1/560/320" alt="Thumbnail 1">
+                </div>
+                <div class="floating-thumb thumb-2" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/thumb2/480/280" alt="Thumbnail 2">
+                </div>
+                <div class="floating-thumb thumb-3" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/thumb3/520/300" alt="Thumbnail 3">
+                </div>
+                <div class="floating-thumb thumb-4" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/thumb4/440/260" alt="Thumbnail 4">
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="hero-images">
-<img src="https://iili.io/qJ6jKGe.jpg" class="img1">
-<img src="https://iili.io/qJ6j2Z7.jpg" class="img2">
-<img src="https://iili.io/qJ6j9yl.jpg" class="img3">
-</div>
-</div>
+    <!-- ===== FEATURED WORK ===== -->
+    <section id="featured">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Portfolio</span>
+                <h2 class="section-title">Featured <span class="highlight">Work</span></h2>
+                <p class="section-desc">A curated selection of my best thumbnail designs across various niches and styles.</p>
+                <div class="divider-line"></div>
+            </div>
 
-<div class="scroll-indicator" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">
-<span>EXPLORE MY WORK</span>
-<div class="mouse"><div class="wheel"></div></div>
-</div>
-</section>
+            <div class="filter-tabs reveal">
+                <button class="filter-tab active" onclick="filterWork('all', this)">All Work</button>
+                <button class="filter-tab" onclick="filterWork('gaming', this)">Gaming</button>
+                <button class="filter-tab" onclick="filterWork('tech', this)">Tech</button>
+                <button class="filter-tab" onclick="filterWork('lifestyle', this)">Lifestyle</button>
+                <button class="filter-tab" onclick="filterWork('education', this)">Education</button>
+            </div>
 
-<!-- FEATURED -->
-<section id="featured">
-<div class="featured-heading">
-<h2>Featured Work</h2>
-<p class="ctr-line">Click Any Thumbnail To View Larger</p>
-</div>
-<div class="grid">
-<img src="https://iili.io/qJPNtft.jpg">
-<img src="https://iili.io/qJPOxmx.jpg">
-<img src="https://iili.io/qJPgAue.jpg">
-<img src="https://iili.io/qJPg0FV.jpg">
-<img src="https://iili.io/qJPv8hv.jpg">
-<img src="https://iili.io/qJPvSQR.jpg">
-<img src="https://iili.io/qJP8M9n.jpg">
-<img src="https://iili.io/qJPUxmg.jpg">
-<img src="https://iili.io/qJPUDZJ.jpg">
-</div>
-</section>
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Card 1 -->
+                <div class="portfolio-card reveal" data-category="gaming" onclick="openLightbox(this.querySelector('.card-image'))">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/port1/700/400" alt="Gaming Thumbnail">
+                        <div class="card-overlay">
+                            <button class="overlay-btn">View Full Size</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-category">Gaming</div>
+                        <h3 class="card-title">Epic Battle Royale Thumbnail</h3>
+                        <p class="card-desc">High-energy gaming thumbnail with dynamic composition</p>
+                        <div class="card-meta">
+                            <span class="meta-item">🎮 FPS Gaming</span>
+                            <span class="meta-item">👁 2.1M Views</span>
+                            <span class="meta-item">📈 18% CTR</span>
+                        </div>
+                    </div>
+                </div>
 
-<!-- LIGHTBOX -->
-<div id="lightbox">
-<span class="close-btn">&times;</span>
-<img id="lightbox-img">
-</div>
+                <!-- Card 2 -->
+                <div class="portfolio-card reveal" data-category="tech" onclick="openLightbox(this.querySelector('.card-image'))">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/port2/700/400" alt="Tech Thumbnail">
+                        <div class="card-overlay">
+                            <button class="overlay-btn">View Full Size</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-category">Tech</div>
+                        <h3 class="card-title">iPhone 15 Pro Review</h3>
+                        <p class="card-desc">Clean, minimal product showcase thumbnail</p>
+                        <div class="card-meta">
+                            <span class="meta-item">📱 Tech Review</span>
+                            <span class="meta-item">👁 890K Views</span>
+                            <span class="meta-item">📈 14% CTR</span>
+                        </div>
+                    </div>
+                </div>
 
-<!-- ABOUT -->
-<section class="about" id="about">
-<div>
-<h2>About Me</h2>
-<p>
-Hi, I'm <strong>Hussnain Ali</strong>, a Graphic Designer specializing in YouTube thumbnail design. I help creators, brands, and businesses capture attention with eye‑catching thumbnails that encourage viewers to click.
-<br><br>
-Over the past two years, I've designed <span class="goal-highlight">90+ custom thumbnails</span> across niches including podcasts, education, business, sports, and personal branding. I've worked with international clients, creating thumbnails that are visually compelling and aligned with each channel's identity. Some of my designs have helped videos reach <span class="goal-highlight">10K+ views</span> on growing YouTube channels.
-</p>
+                <!-- Card 3 -->
+                <div class="portfolio-card reveal" data-category="lifestyle" onclick="openLightbox(this.querySelector('.card-image'))">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/port3/700/400" alt="Lifestyle Thumbnail">
+                        <div class="card-overlay">
+                            <button class="overlay-btn">View Full Size</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-category">Lifestyle</div>
+                        <h3 class="card-title">Morning Routine Secrets</h3>
+                        <p class="card-desc">Engaging lifestyle content with warm tones</p>
+                        <div class="card-meta">
+                            <span class="meta-item">🌅 Lifestyle</span>
+                            <span class="meta-item">👁 1.5M Views</span>
+                            <span class="meta-item">📈 16% CTR</span>
+                        </div>
+                    </div>
+                </div>
 
-  <span class="goal-highlight">My goal is simple:</span>
-  "Design thumbnails that deliver measurable results."
-</div>
-<div>
-<img src="https://iili.io/qdvhsp4.jpg">
-</div>
-</section>
+                <!-- Card 4 -->
+                <div class="portfolio-card reveal" data-category="education" onclick="openLightbox(this.querySelector('.card-image'))">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/port4/700/400" alt="Education Thumbnail">
+                        <div class="card-overlay">
+                            <button class="overlay-btn">View Full Size</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-category">Education</div>
+                        <h3 class="card-title">Python in 10 Minutes</h3>
+                        <p class="card-desc">Bold educational content with clear typography</p>
+                        <div class="card-meta">
+                            <span class="meta-item">📚 Education</span>
+                            <span class="meta-item">👁 3.2M Views</span>
+                            <span class="meta-item">📈 22% CTR</span>
+                        </div>
+                    </div>
+                </div>
 
-<!-- BEFORE AFTER -->
-<section class="before-after" id="before-after">
-<h2>Before & After</h2>
+                <!-- Card 5 -->
+                <div class="portfolio-card reveal" data-category="gaming" onclick="openLightbox(this.querySelector('.card-image'))">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/port5/700/400" alt="Gaming Thumbnail 2">
+                        <div class="card-overlay">
+                            <button class="overlay-btn">View Full Size</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-category">Gaming</div>
+                        <h3 class="card-title">Minecraft Mega Build</h3>
+                        <p class="card-desc">Colorful and exciting Minecraft thumbnail</p>
+                        <div class="card-meta">
+                            <span class="meta-item">⛏ Minecraft</span>
+                            <span class="meta-item">👁 4.5M Views</span>
+                            <span class="meta-item">📈 20% CTR</span>
+                        </div>
+                    </div>
+                </div>
 
-<div class="compare-container" id="compare1">
-<img src="https://iili.io/qdHjWs1.jpg">
-<div class="after-image">
-<img src="https://iili.io/qJPg0FV.jpg">
-</div>
-<div class="slider-line"></div>
-<div class="slider-button"></div>
-</div>
+                <!-- Card 6 -->
+                <div class="portfolio-card reveal" data-category="tech" onclick="openLightbox(this.querySelector('.card-image'))">
+                    <div class="card-image">
+                        <img src="https://picsum.photos/seed/port6/700/400" alt="Tech Thumbnail 2">
+                        <div class="card-overlay">
+                            <button class="overlay-btn">View Full Size</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-category">Tech</div>
+                        <h3 class="card-title">Best Budget Laptop 2024</h3>
+                        <p class="card-desc">Comparison-style tech thumbnail design</p>
+                        <div class="card-meta">
+                            <span class="meta-item">💻 Laptops</span>
+                            <span class="meta-item">👁 1.1M Views</span>
+                            <span class="meta-item">📈 13% CTR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="compare-container" id="compare2">
-<img src="https://iili.io/qdHg9El.jpg">
-<div class="after-image">
-<img src="https://iili.io/qdHgfTu.jpg">
-</div>
-<div class="slider-line"></div>
-<div class="slider-button"></div>
-</div>
+    <!-- ===== ABOUT ME ===== -->
+    <section id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="about-image-wrapper reveal">
+                    <div class="about-image">
+                        <img src="https://picsum.photos/seed/portrait/400/500" alt="About Me">
+                        <div class="about-image-decoration"></div>
+                    </div>
+                    <div class="floating-badge badge-top">
+                        <div class="badge-number">3+</div>
+                        <div class="badge-text">Years Experience</div>
+                    </div>
+                    <div class="floating-badge badge-bottom">
+                        <div class="badge-number">100%</div>
+                        <div class="badge-text">Client Satisfaction</div>
+                    </div>
+                </div>
+                <div class="about-content reveal">
+                    <span class="section-label" style="text-align:left;">About Me</span>
+                    <h2 class="section-title">The Designer Behind<br><span class="highlight">Your Next Viral Video</span></h2>
+                    <p class="about-text">
+                        Hey! I'm a passionate thumbnail designer who believes every video deserves a thumbnail that 
+                        makes people <strong>stop scrolling and click</strong>. With over 3 years of experience, I've 
+                        worked with YouTubers across gaming, tech, education, and lifestyle niches.
+                    </p>
+                    <p class="about-text">
+                        I combine bold typography, striking compositions, and psychological color theory to create 
+                        thumbnails that don't just look good — they <strong>perform</strong>. My average client sees a 
+                        40-60% increase in CTR after switching to my designs.
+                    </p>
 
-</section>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-icon">🎨</div>
+                            <span class="skill-name">Adobe Photoshop</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon">✏️</div>
+                            <span class="skill-name">Adobe Illustrator</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon">🖼</div>
+                            <span class="skill-name">Photo Manipulation</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon">🔤</div>
+                            <span class="skill-name">Typography Design</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon">🎯</div>
+                            <span class="skill-name">CTR Optimization</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon">📊</div>
+                            <span class="skill-name">A/B Testing</span>
+                        </div>
+                    </div>
 
-<!-- CONTACT -->
-<section id="contact" class="contact">
-<h2>Let’s Work Together</h2>
-<p>Ready to boost your YouTube performance? Let’s create thumbnails that convert.</p>
+                    <div class="about-cta">
+                        <a href="#contact" class="btn-primary">Let's Work Together →</a>
+                        <a href="#" class="btn-secondary">Download Resume</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<form>
-<input type="text" placeholder="Name">
-<input type="email" placeholder="Email">
-<textarea placeholder="Message"></textarea>
-<button type="submit">Send Message</button>
-</form>
+    <!-- ===== BEFORE & AFTER ===== -->
+    <section id="before-after">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Transformation</span>
+                <h2 class="section-title">Before & <span class="highlight">After</span></h2>
+                <p class="section-desc">Drag the slider to see the transformation. Watch ordinary frames become click-worthy thumbnails.</p>
+                <div class="divider-line"></div>
+            </div>
 
-<div class="social">
-<a href="https://mail.google.com/mail/?view=cm&fs=1&to=hussnaincanvasofficial@gmail.com" target="_blank" rel="noopener">
-<i class="fas fa-envelope"></i>
-</a>
+            <div class="ba-sliders-container">
+                <!-- Slider 1 -->
+                <div class="ba-slider-wrapper reveal">
+                    <div class="ba-slider" id="slider1">
+                        <div class="ba-image before" id="before1">
+                            <img src="https://picsum.photos/seed/before1/700/400?grayscale" alt="Before">
+                        </div>
+                        <div class="ba-image after">
+                            <img src="https://picsum.photos/seed/after1/700/400" alt="After">
+                        </div>
+                        <div class="ba-handle" id="handle1"></div>
+                        <div class="ba-labels">
+                            <span class="ba-label before-label">BEFORE</span>
+                            <span class="ba-label after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="ba-info">
+                        <h4 class="ba-title">Gaming Channel Rebrand</h4>
+                        <p class="ba-desc">From basic screenshot to eye-catching design</p>
+                    </div>
+                </div>
 
-<a href="https://www.instagram.com/hussnain._.canvas/"><i class="fab fa-instagram"></i></a>
-<a href="https://www.fiverr.com/s/99vj1eE"><i class="fas fa-briefcase"></i></a>
-<a href="https://www.linkedin.com/in/hussnaincanvas/"><i class="fab fa-linkedin"></i></a>
-</div>
-</section>
+                <!-- Slider 2 -->
+                <div class="ba-slider-wrapper reveal">
+                    <div class="ba-slider" id="slider2">
+                        <div class="ba-image before" id="before2">
+                            <img src="https://picsum.photos/seed/before2/700/400?grayscale" alt="Before">
+                        </div>
+                        <div class="ba-image after">
+                            <img src="https://picsum.photos/seed/after2/700/400" alt="After">
+                        </div>
+                        <div class="ba-handle" id="handle2"></div>
+                        <div class="ba-labels">
+                            <span class="ba-label before-label">BEFORE</span>
+                            <span class="ba-label after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="ba-info">
+                        <h4 class="ba-title">Tech Review Overhaul</h4>
+                        <p class="ba-desc">Transforming dull reviews into visual stories</p>
+                    </div>
+                </div>
 
-<script>
-/* NAVBAR */
-const navbar=document.getElementById("navbar");
-const navToggle=document.getElementById("navToggle");
-const navLinks=document.getElementById("navLinks");
-const navLinkItems=document.querySelectorAll(".nav-link");
-const navSections=["home","featured","about","before-after","contact"]
-.map(id=>document.getElementById(id))
-.filter(Boolean);
+                <!-- Slider 3 -->
+                <div class="ba-slider-wrapper reveal">
+                    <div class="ba-slider" id="slider3">
+                        <div class="ba-image before" id="before3">
+                            <img src="https://picsum.photos/seed/before3/700/400?grayscale" alt="Before">
+                        </div>
+                        <div class="ba-image after">
+                            <img src="https://picsum.photos/seed/after3/700/400" alt="After">
+                        </div>
+                        <div class="ba-handle" id="handle3"></div>
+                        <div class="ba-labels">
+                            <span class="ba-label before-label">BEFORE</span>
+                            <span class="ba-label after-label">AFTER</span>
+                        </div>
+                    </div>
+                    <div class="ba-info">
+                        <h4 class="ba-title">Lifestyle Vlog Upgrade</h4>
+                        <p class="ba-desc">Adding that professional polish creators need</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-navToggle.addEventListener("click",()=>{
-navToggle.classList.toggle("open");
-navLinks.classList.toggle("open");
-});
-navLinks.querySelectorAll("a").forEach(a=>{
-a.addEventListener("click",()=>{
-navToggle.classList.remove("open");
-navLinks.classList.remove("open");
-});
-});
+    <!-- ===== TESTIMONIALS ===== -->
+    <section id="testimonials">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">What Clients <span class="highlight">Say</span></h2>
+                <p class="section-desc">Don't just take my word for it — hear from creators who've seen real results.</p>
+                <div class="divider-line"></div>
+            </div>
 
-function updateNavbar(){
-if(window.scrollY>40){navbar.classList.add("scrolled");}
-else{navbar.classList.remove("scrolled");}
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">
+                        "My CTR went from 4% to 14% after switching to these thumbnails. 
+                        The designs are absolutely incredible and my channel growth exploded!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div>
+                            <div class="author-name">John Doe</div>
+                            <div class="author-role">Gaming YouTuber • 500K Subs</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
 
-let current=navSections[0]?.id;
-navSections.forEach(sec=>{
-const rect=sec.getBoundingClientRect();
-if(rect.top<=120){current=sec.id;}
-});
-navLinkItems.forEach(link=>{
-link.classList.toggle("active",link.dataset.target===current);
-});
-}
-window.addEventListener("scroll",updateNavbar);
-updateNavbar();
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">
+                        "Best thumbnail designer I've ever worked with. Fast turnaround, 
+                        amazing communication, and the results speak for themselves. 10/10!"
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div>
+                            <div class="author-name">Sarah Kim</div>
+                            <div class="author-role">Tech Reviewer • 1.2M Subs</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
 
-/* LIGHTBOX */
-const images=document.querySelectorAll(".grid img");
-const lightbox=document.getElementById("lightbox");
-const lightboxImg=document.getElementById("lightbox-img");
-const closeBtn=document.querySelector(".close-btn");
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-text">
+                        "I was struggling to get views. After investing in professional thumbnails, 
+                        my videos started getting recommended by YouTube's algorithm consistently."
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div>
+                            <div class="author-name">Mike Rivera</div>
+                            <div class="author-role">Educator • 800K Subs</div>
+                            <div class="stars">★★★★★</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-images.forEach(img=>{
-img.addEventListener("click",()=>{
-lightbox.style.display="flex";
-lightboxImg.src=img.src;
-});
-});
-closeBtn.onclick=()=>lightbox.style.display="none";
-lightbox.onclick=(e)=>{if(e.target===lightbox)lightbox.style.display="none";};
+    <!-- ===== CONTACT / CTA ===== -->
+    <section id="contact">
+        <div class="section-container">
+            <div class="contact-container reveal">
+                <span class="section-label">Get in Touch</span>
+                <h2 class="contact-title">Ready to <span class="highlight">10x</span> Your Clicks?</h2>
+                <p class="contact-desc">
+                    Let's create thumbnails that make your audience stop scrolling. 
+                    Fast turnaround, unlimited revisions, and results guaranteed.
+                </p>
+                <div class="contact-buttons">
+                    <a href="mailto:your@email.com" class="btn-primary">📧 Send Email</a>
+                    <a href="https://discord.gg/" target="_blank" class="btn-secondary">💬 Discord</a>
+                    <a href="https://www.fiverr.com/" target="_blank" class="btn-primary" style="background: #1dbf73;">🛒 Fiverr</a>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📧</div>
+                        <div class="contact-item-label">Email</div>
+                        <div class="contact-item-value">hello@thumbfolio.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">💬</div>
+                        <div class="contact-item-label">Discord</div>
+                        <div class="contact-item-value">thumbdesigner#0001</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">⏰</div>
+                        <div class="contact-item-label">Turnaround</div>
+                        <div class="contact-item-value">24-48 Hours</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">💰</div>
+                        <div class="contact-item-label">Starting At</div>
+                        <div class="contact-item-value">$15 / thumbnail</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-/* BEFORE AFTER */
-function initCompare(container){
-const after=container.querySelector(".after-image");
-const line=container.querySelector(".slider-line");
-const button=container.querySelector(".slider-button");
-let isDragging=false;
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">© 2024 ThumbFolio. All rights reserved. Made with ❤️</div>
+            <div class="social-links">
+                <a href="#" class="social-link" title="Twitter">𝕏</a>
+                <a href="#" class="social-link" title="Instagram">📷</a>
+                <a href="#" class="social-link" title="YouTube">▶</a>
+                <a href="#" class="social-link" title="Behance">Be</a>
+                <a href="#" class="social-link" title="Dribbble">🏀</a>
+            </div>
+        </div>
+    </footer>
 
-button.addEventListener("mousedown",()=>isDragging=true);
-window.addEventListener("mouseup",()=>isDragging=false);
-window.addEventListener("mousemove",(e)=>{
-if(!isDragging)return;
-let rect=container.getBoundingClientRect();
-let offsetX=e.clientX-rect.left;
-if(offsetX<0)offsetX=0;
-if(offsetX>rect.width)offsetX=rect.width;
-let percent=(offsetX/rect.width)*100;
-after.style.width=percent+"%";
-line.style.left=percent+"%";
-button.style.left=percent+"%";
-});
-}
-initCompare(document.getElementById("compare1"));
-initCompare(document.getElementById("compare2"));
-</script>
+    <!-- ===== SCROLL TO TOP ===== -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
 
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img src="" alt="Full view" id="lightboxImg">
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        // ===== MOBILE MENU =====
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+            document.getElementById('hamburger').classList.toggle('active');
+        }
+
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('active');
+        }
+
+        // ===== PORTFOLIO FILTER =====
+        function filterWork(category, btn) {
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter cards
+            const cards = document.querySelectorAll('.portfolio-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 300);
+                }
+            });
+        }
+
+        // ===== LIGHTBOX =====
+        function openLightbox(element) {
+            const img = element.querySelector('img');
+            if (img) {
+                document.getElementById('lightboxImg').src = img.src;
+                document.getElementById('lightbox').classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // ===== BEFORE & AFTER SLIDERS =====
+        function initSlider(sliderId, beforeId, handleId) {
+            const slider = document.getElementById(sliderId);
+            const before = document.getElementById(beforeId);
+            const handle = document.getElementById(handleId);
+            let isDown = false;
+
+            function move(x) {
+                const rect = slider.getBoundingClientRect();
+                let pos = ((x - rect.left) / rect.width) * 100;
+                pos = Math.max(5, Math.min(95, pos));
+                before.style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
+                handle.style.left = pos + '%';
+            }
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                move(e.clientX);
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                move(e.clientX);
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDown = false;
+            });
+
+            // Touch support
+            slider.addEventListener('touchstart', (e) => {
+                isDown = true;
+                move(e.touches[0].clientX);
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDown) return;
+                move(e.touches[0].clientX);
+            });
+
+            window.addEventListener('touchend', () => {
+                isDown = false;
+            });
+        }
+
+        initSlider('slider1', 'before1', 'handle1');
+        initSlider('slider2', 'before2', 'handle2');
+        initSlider('slider3', 'before3', 'handle3');
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 100);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== PARTICLES =====
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.opacity = Math.random() * 0.3 + 0.1;
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animation = `particleFloat ${Math.random() * 10 + 10}s ease-in-out infinite`;
+                container.appendChild(particle);
+            }
+
+            // Add the keyframe dynamically
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes particleFloat {
+                    0%, 100% { transform: translate(0, 0); opacity: 0.1; }
+                    25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0.3; }
+                    50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0.1; }
+                    75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0.25; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        createParticles();
+
+        // ===== SMOOTH PARALLAX ON MOUSE MOVE (Hero) =====
+        document.querySelector('.hero').addEventListener('mousemove', (e) => {
+            const thumbs = document.querySelectorAll('.floating-thumb');
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+            thumbs.forEach((thumb, i) => {
+                const speed = (i + 1) * 5;
+                thumb.style.transform += ` translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // ===== TYPED EFFECT FOR HERO (optional enhancement) =====
+        console.log('%c🎨 ThumbFolio Portfolio', 'color: #e94560; font-size: 20px; font-weight: bold;');
+        console.log('%cDesigned & Built with pure HTML, CSS & JS', 'color: #a0a0b8; font-size: 12px;');
+    </script>
 </body>
 </html>
